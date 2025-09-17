@@ -117,9 +117,9 @@
                             </th>
                             <th t-if="groupby != 'category'">Category</th>
                             <th t-if="groupby != 'stage'">Stage</th>
-                            <th>Create Date</th>
-                            <th>Last Stage Update</th>
-                            <th>Close Date</th>
+                            <th>Fecha de Creación</th>
+                            <th>Última Actualización de Etapa</th>
+                            <th>Fecha de Cierre</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -220,7 +220,7 @@
                                 t-if="ticket.user_id"
                             >
                                 <h6>
-                                    <small class="text-muted">Assignee</small>
+                                    <small class="text-muted">Asignado a</small>
                                 </h6>
                                 <t t-call="portal.portal_my_contact">
                                     <t
@@ -262,7 +262,7 @@
                                 t-if="ticket.partner_id"
                             >
                                 <h6>
-                                    <small class="text-muted">Customer</small>
+                                    <small class="text-muted">Cliente</small>
                                 </h6>
                                 <t t-if="ticket.partner_id">
                                     <t t-call="portal.portal_my_contact">
@@ -302,7 +302,7 @@
                                     </div>
                                 </div>
                                 <div class="col-auto">
-                                    <small class="text-end">Stage:</small>
+                                    <small class="text-end">Etapa:</small>
                                     <span
                                         t-field="ticket.stage_id.name"
                                         class=" badge rounded-pill text-bg-info"
@@ -315,14 +315,14 @@
                             <div class="row mb-4 container">
                                 <div class="col-12 col-md-6 flex-grow-1">
                                     <div>
-                                        <strong>Create Date:</strong>
+                                        <strong>Fecha de Creación:</strong>
                                         <span
                                             t-field="ticket.create_date"
                                             t-options='{"widget": "datetime"}'
                                         />
                                     </div>
                                     <div>
-                                        <strong>Last Stage Update:</strong>
+                                        <strong>Última Actualización de Etapa:</strong>
                                         <span
                                             t-field="ticket.last_stage_update"
                                             t-options='{"widget": "datetime"}'
@@ -353,7 +353,7 @@
                                     t-if="not is_html_empty(ticket.description)"
                                     class="mb-4 mb-md-0"
                                 >
-                                    <h5 class="mb-1">Description</h5>
+                                    <h5 class="mb-1">Descripción</h5>
                                     <hr class="mt-1 mb-2" />
                                     <div
                                         class="py-1 px-2 small overflow-auto table-responsive mb-4"
@@ -364,7 +364,7 @@
                                     t-if="ticket.attachment_ids"
                                     class="o_project_portal_attachments"
                                 >
-                                    <h5 class="mb-1">Attachments</h5>
+                                    <h5 class="mb-1">Archivos Adjuntos</h5>
                                     <hr class="mt-1 mb-2" />
                                     <div class="row">
                                         <t
@@ -405,7 +405,7 @@
                     </div>
                     <hr />
                     <div id="task_chat" data-anchor="true">
-                        <h3>Communication history</h3>
+                        <h3>Historial de comunicación</h3>
                         <t t-call="portal.message_thread">
                             <t t-set="token" t-value="ticket.access_token" />
                         </t>
@@ -420,7 +420,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="text-center">Send a new ticket</h1>
+                        <h1 class="text-center">Enviar un nuevo ticket</h1>
                     </div>
                 </div>
             </div>
@@ -439,7 +439,7 @@
                     <label
                         class="col-md-3 col-sm-4 control-label"
                         for="team"
-                    >Team</label>
+                    >Equipo</label>
                     <div class="col-md-7 col-sm-8">
                         <select
                             class="form-control"
@@ -460,7 +460,7 @@
                     <label
                         class="col-md-3 col-sm-4 control-label"
                         for="category"
-                    >Category</label>
+                    >Categoría</label>
                     <div class="col-md-7 col-sm-8">
                         <select
                             class="form-control"
@@ -481,7 +481,7 @@
                     <label
                         class="col-md-3 col-sm-4 control-label"
                         for="subject"
-                    >Subject</label>
+                    >Asunto</label>
                     <div class="col-md-7 col-sm-8">
                         <input
                             type="text"
@@ -495,7 +495,7 @@
                     <label
                         class="col-md-3 col-sm-4 control-label"
                         for="attachment"
-                    >Add Attachments</label>
+                    >Añadir Adjuntos</label>
                     <div class="col-md-7 col-sm-8">
                         <div class="btn btn-default btn-file col-md-12">
                             <input
@@ -518,7 +518,7 @@
                     <label
                         class="col-md-3 col-dm-4 control-label"
                         for="description"
-                    >Description</label>
+                    >Descripción</label>
                     <div class="col-md-7 col-sm-8">
                         <textarea
                             class="form-control"
@@ -530,7 +530,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-3 col-sm-offset-4 col-sm-8 col-md-7">
-                        <button class="btn btn-primary btn-lg">Submit Ticket</button>
+                        <button class="btn btn-primary btn-lg">Enviar Ticket</button>
                     </div>
                 </div>
             </form>

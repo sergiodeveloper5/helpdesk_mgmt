@@ -10,7 +10,7 @@
     <data noupdate="1">
         <!--Email template -->
         <record id="assignment_email_template" model="mail.template">
-            <field name="name">Ticket Assignment</field>
+            <field name="name">Asignación de Ticket</field>
             <field name="model_id" ref="model_helpdesk_ticket" />
             <field name="email_from">{{object.company_id.partner_id.email}}</field>
             <field
@@ -18,23 +18,23 @@
             >{{not object.partner_id and object.partner_email or ''}},</field>
             <field
                 name="subject"
-            >{{object.company_id.name}} Ticket Assignment (Ref {{object.number or 'n/a' }})</field>
+            >{{object.company_id.name}} Asignación de Ticket (Ref {{object.number or 'n/a' }})</field>
             <field name="partner_to">{{object.partner_id.id}}</field>
             <field name="auto_delete" eval="False" />
             <field name="lang">{{object.partner_id.lang}}</field>
             <field name="body_html" type="html">
-                <p>Hello <t t-out="object.user_id.name" />,</p>
-                <p>The ticket <t t-out="object.number" /> has been assigned to you.</p>
+                <p>Hola <t t-out="object.user_id.name" />,</p>
+                <p>El ticket <t t-out="object.number" /> ha sido asignado a ti.</p>
             </field>
         </record>
         <record id="closed_ticket_template" model="mail.template">
-            <field name="name">Helpdesk Closed Ticket Notification Email</field>
+            <field name="name">Email de Notificación de Ticket Cerrado</field>
             <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket" />
             <field name="email_from">{{object.company_id.partner_id.email}}</field>
             <field
                 name="email_cc"
             >{{not object.partner_id and object.partner_email or ''}},</field>
-            <field name="subject">The ticket {{object.number}} has been closed.</field>
+            <field name="subject">El ticket {{object.number}} ha sido cerrado.</field>
             <field name="partner_to">{{object.partner_id.id}}</field>
             <field name="auto_delete" eval="False" />
             <field name="lang">{{object.partner_id.lang}}</field>
@@ -84,12 +84,12 @@
                                             valign="top"
                                             style="font-family:Arial,Helvetica,sans-serif; color: #555; font-size: 14px;"
                                         >
-                                            <p>Hello <t
+                                            <p>Hola <t
                                                 t-out="object.user_id.name"
                                             />,</p>
-                                            <p>The ticket "<t
+                                            <p>El ticket "<t
                                                 t-out="object.display_name"
-                                            />" has been closed.</p>
+                                            />" ha sido cerrado.</p>
                                         </td>
                                     </tbody>
                                 </table>
@@ -136,7 +136,7 @@
             </field>
         </record>
         <record id="changed_stage_template" model="mail.template">
-            <field name="name">Helpdesk Changed Stage notification Email</field>
+            <field name="name">Email de Notificación de Cambio de Etapa</field>
             <field name="model_id" ref="helpdesk_mgmt.model_helpdesk_ticket" />
             <field name="email_from">{{object.company_id.partner_id.email}}</field>
             <field
@@ -144,7 +144,7 @@
             >{{not object.partner_id and object.partner_email or ''}},</field>
             <field
                 name="subject"
-            >The ticket {{object.number}} stage has changed.</field>
+            >La etapa del ticket {{object.number}} ha cambiado.</field>
             <field name="partner_to">{{object.partner_id.id}}</field>
             <field name="auto_delete" eval="False" />
             <field name="lang">{{object.partner_id.lang}}</field>
@@ -194,12 +194,12 @@
                                             valign="top"
                                             style="font-family:Arial,Helvetica,sans-serif; color: #555; font-size: 14px;"
                                         >
-                                            <p>Hello <t
+                                            <p>Hola <t
                                                 t-out="object.user_id.name"
                                             />,</p>
-                                            <p>The ticket "<t
+                                            <p>La etapa del ticket "<t
                                                 t-out="object.display_name"
-                                            />" stage has changed to <t
+                                            />" ha cambiado a <t
                                                 t-out="object.stage_id.name"
                                             />.</p>
                                         </td>
@@ -341,6 +341,97 @@
             <field name="default" eval="True" />
             <field name="parent_id" ref="hlp_tck_created" />
             <field name="relation_field">team_id</field>
+        </record>
+
+        <!-- Enhanced Ticket Assignment Email Template -->
+        <record id="enhanced_ticket_assignment_email_template" model="mail.template">
+            <field name="name">Asignación Mejorada de Ticket de Helpdesk</field>
+            <field name="model_id" ref="model_helpdesk_ticket"/>
+            <field name="subject">Nuevo Ticket {{'Interno' if object.is_internal_ticket else 'Externo'}}: {{object.name}}</field>
+            <field name="email_to">{{object.team_id.user_id.email}}</field>
+            <field name="partner_to">{{object.team_id.user_id.partner_id.id}}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff;">
+    <div style="text-align: center; padding-bottom: 20px; border-bottom: 2px solid #875A7B;">
+        <h1 style="color: #875A7B; margin: 0; font-size: 24px;">Nueva Asignación de Ticket</h1>
+    </div>
+
+    <div style="padding: 20px 0;">
+        <p style="font-size: 16px; color: #333;">Hola <strong><t t-out="object.team_id.user_id.name" /></strong>,</p>
+
+        <p style="font-size: 16px; color: #333;">
+            Se te ha asignado un nuevo ticket de helpdesk
+            <span style="color: #875A7B; font-weight: bold;">
+                <t t-if="object.is_internal_ticket">Interno</t><t t-else="">Externo</t>
+            </span>:
+        </p>
+
+        <div style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; margin: 20px 0;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 8px 0; font-weight: bold; color: #495057; width: 30%;">Número de Ticket:</td>
+                    <td style="padding: 8px 0; color: #333;"><t t-out="object.number" /></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px 0; font-weight: bold; color: #495057;">Asunto:</td>
+                    <td style="padding: 8px 0; color: #333;"><t t-out="object.name or 'Sin asunto proporcionado'" /></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px 0; font-weight: bold; color: #495057;">Cliente:</td>
+                    <td style="padding: 8px 0; color: #333;"><t t-out="object.partner_id.name or 'Usuario Invitado'" /></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px 0; font-weight: bold; color: #495057;">Email:</td>
+                    <td style="padding: 8px 0; color: #333;"><t t-out="object.partner_email or object.partner_id.email or 'Sin email proporcionado'" /></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px 0; font-weight: bold; color: #495057;">Dominio:</td>
+                    <td style="padding: 8px 0; color: #333;"><t t-out="object.email_domain or 'Sin dominio'" /></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px 0; font-weight: bold; color: #495057;">Equipo:</td>
+                    <td style="padding: 8px 0; color: #333;"><t t-out="object.team_id.name" /></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px 0; font-weight: bold; color: #495057;">Prioridad:</td>
+                    <td style="padding: 8px 0;">
+                        <span t-attf-style="{{('color: #dc3545; font-weight: bold;' if object.priority == '3' else 'color: #fd7e14; font-weight: bold;' if object.priority == '2' else 'color: #28a745;')}}">
+                            <t t-if="object.priority == '3'">Alta</t>
+                            <t t-elif="object.priority == '2'">Media</t>
+                            <t t-else="">Baja</t>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <a t-attf-href="{{object.get_base_url()}}/web#id={{object.id}}&amp;model=helpdesk.ticket&amp;view_type=form"
+               style="
+                    background-color: #875A7B;
+                    color: white;
+                    padding: 12px 30px;
+                    text-decoration: none;
+                    border-radius: 6px;
+                    display: inline-block;
+                    font-weight: bold;
+                    font-size: 16px;
+                    box-shadow: 0 2px 4px rgba(135, 90, 123, 0.3);
+                ">
+                🎫 Ver Detalles del Ticket
+            </a>
+        </div>
+    </div>
+
+    <div style="border-top: 1px solid #dee2e6; padding-top: 15px; margin-top: 30px;">
+        <p style="font-size: 12px; color: #6c757d; text-align: center; margin: 0;">
+            Esta es una notificación automática del Sistema de Helpdesk.<br/>
+            Por favor, no responda directamente a este email.
+        </p>
+    </div>
+</div>
+            </field>
         </record>
     </data>
 </odoo>
