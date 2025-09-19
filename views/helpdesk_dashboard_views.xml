@@ -54,60 +54,64 @@
                                             style="padding-top:20px;"
                                         >
                                             <button
-                                                class="btn btn-primary"
+                                                class="btn btn-primary d-flex align-items-center justify-content-center"
                                                 name="%(action_helpdesk_ticket_kanban_from_dashboard)d"
                                                 type="action"
                                                 context="{'search_default_open': 1}"
+                                                style="min-width: 120px; min-height: 40px;"
                                             >
-                                                <t
-                                                t-esc="record.todo_ticket_count.value"
-                                            />
-                                                To Do
+                                                <span class="badge bg-light text-dark me-2" style="min-width: 30px; font-weight: bold;">
+                                                    <t t-esc="record.todo_ticket_count.value"/>
+                                                </span>
+                                                Por hacer
                                             </button>
                                         </div>
                                         <div class="col-6 o_kanban_primary_right">
-                                            <div class="row">
-                                                <div class="col-9">
+                                            <div class="row g-1">
+                                                <div class="col-8 text-start">
                                                     <a
                                                         name="%(action_helpdesk_ticket_kanban_from_dashboard)d"
                                                         type="action"
                                                         context="{'search_default_unassigned': 1}"
+                                                        class="text-decoration-none"
                                                     >
-                                                        Unassigned
+                                                        No asignado
                                                     </a>
                                                 </div>
-                                                <div class="col-3">
-                                                    <t
-                                                        t-esc="record.todo_ticket_count_unassigned.value"
-                                                    />
+                                                <div class="col-4 text-end">
+                                                    <span class="badge bg-secondary" style="min-width: 25px;">
+                                                        <t t-esc="record.todo_ticket_count_unassigned.value"/>
+                                                    </span>
                                                 </div>
-                                                <div class="col-9">
+                                                <div class="col-8 text-start">
                                                     <a
                                                         name="%(action_helpdesk_ticket_kanban_from_dashboard)d"
                                                         type="action"
                                                         context="{'search_default_unattended': 1}"
+                                                        class="text-decoration-none"
                                                     >
-                                                        Unattended
+                                                        Sin atender
                                                     </a>
                                                 </div>
-                                                <div class="col-3">
-                                                    <t
-                                                        t-esc="record.todo_ticket_count_unattended.value"
-                                                    />
+                                                <div class="col-4 text-end">
+                                                    <span class="badge bg-warning" style="min-width: 25px;">
+                                                        <t t-esc="record.todo_ticket_count_unattended.value"/>
+                                                    </span>
                                                 </div>
-                                                <div class="col-9">
+                                                <div class="col-8 text-start">
                                                     <a
                                                         name="%(action_helpdesk_ticket_kanban_from_dashboard)d"
                                                         type="action"
                                                         context="{'search_default_high_priority': 1}"
+                                                        class="text-decoration-none"
                                                     >
-                                                        High Priority
+                                                        Prioridad alta
                                                     </a>
                                                 </div>
-                                                <div class="col-3">
-                                                    <t
-                                                        t-esc="record.todo_ticket_count_high_priority.value"
-                                                    />
+                                                <div class="col-4 text-end">
+                                                    <span class="badge bg-danger" style="min-width: 25px;">
+                                                        <t t-esc="record.todo_ticket_count_high_priority.value"/>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
